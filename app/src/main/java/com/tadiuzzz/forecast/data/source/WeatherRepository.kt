@@ -1,12 +1,14 @@
 package com.tadiuzzz.forecast.data.source
 
 import com.tadiuzzz.forecast.data.WeatherResponse
+import com.tadiuzzz.newsapp.di.scope.AppScope
 import retrofit2.Response
 import javax.inject.Inject
 
-class Repository @Inject constructor(val weatherApi: WeatherApi) {
+@AppScope
+class WeatherRepository @Inject constructor(val weatherApi: WeatherApi) {
 
-    suspend fun getCurrentWeather(city: String): Response<WeatherResponse> {
+    suspend fun getCurrentWeather(city: String): WeatherResponse {
         return weatherApi.getCurrentWeather(city)
     }
 }
