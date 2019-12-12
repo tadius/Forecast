@@ -8,4 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextMain">
+        <item name="android:textColor">@color/textColorMain</item>
+        <item name="android:textSize">@dimen/mainTextSize</item>
+    </style>
+
+    <style name="TextAdditional">
+        <item name="android:textColor">@color/textColorAdditional</item>
+        <item name="android:textSize">@dimen/additionalTextSize</item>
+    </style>
+
+    <style name="TextCity" parent="TextMain">
+        <item name="android:textSize">@dimen/cityTextSize</item>
+    </style>
+
+    <style name="TextTemperature" parent="TextMain">
+        <item name="android:textSize">@dimen/temperatureTextSize</item>
+    </style>
+
 </resources>

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Forecast</string>
+    <string name="change_city">Сменить город</string>
+    <string name="current_location">Мое местоположение</string>
+    <string name="wind">Ветер</string>
+    <string name="humidity">Влажность</string>
+    <string name="pressure">Давление</string>
+    <string name="rain_chance">Вероятность дождя</string>
+    <string name="content_desc_weather_icon">Иконка погоды</string>
+    <string name="celsius">C</string>
+    <string name="fahrenheit">F</string>
 </resources>

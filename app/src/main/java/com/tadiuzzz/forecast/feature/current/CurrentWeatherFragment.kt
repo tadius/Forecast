@@ -1,5 +1,6 @@
 package com.tadiuzzz.forecast.feature.current
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.tadiuzzz.forecast.App
 
 import com.tadiuzzz.forecast.R
 import javax.inject.Inject
@@ -19,6 +21,11 @@ class CurrentWeatherFragment : Fragment() {
         ViewModelProviders.of(this, viewModelFactory)[CurrentWeatherViewModel::class.java]
     }
 
+    override fun onAttach(context: Context) {
+        (context.applicationContext as App).appComponent.inject(this)
+        super.onAttach(context)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,7 +35,7 @@ class CurrentWeatherFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.updateCurrentWeather("Krasnodar") //TODO: change to shared preference call
+//        viewModel.updateCurrentWeather("Krasnodar") //TODO: change to shared preference call
     }
 
 }
