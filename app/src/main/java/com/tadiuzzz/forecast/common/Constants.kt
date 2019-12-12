@@ -1,4 +1,4 @@
-package com.tadiuzzz.newsapp.common
+package com.tadiuzzz.forecast.common
 
 class Constants {
     companion object {

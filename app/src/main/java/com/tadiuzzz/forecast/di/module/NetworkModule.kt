@@ -1,9 +1,9 @@
-package com.tadiuzzz.newsapp.di.module
+package com.tadiuzzz.forecast.di.module
 
 import com.tadiuzzz.forecast.data.source.WeatherApi
-import com.tadiuzzz.newsapp.common.Constants.Companion.API_KEY
-import com.tadiuzzz.newsapp.common.Constants.Companion.BASE_URL
-import com.tadiuzzz.newsapp.di.scope.AppScope
+import com.tadiuzzz.forecast.common.Constants.Companion.API_KEY
+import com.tadiuzzz.forecast.common.Constants.Companion.BASE_URL
+import com.tadiuzzz.forecast.di.scope.AppScope
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

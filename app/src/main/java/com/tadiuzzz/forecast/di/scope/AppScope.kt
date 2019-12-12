@@ -1,4 +1,4 @@
-package com.tadiuzzz.newsapp.di.scope
+package com.tadiuzzz.forecast.di.scope
 
 import javax.inject.Scope
 

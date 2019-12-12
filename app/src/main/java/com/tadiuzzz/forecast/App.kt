@@ -1,8 +1,8 @@
 package com.tadiuzzz.forecast
 
 import android.app.Application
-import com.tadiuzzz.newsapp.di.component.AppComponent
-import com.tadiuzzz.newsapp.di.component.DaggerAppComponent
+import com.tadiuzzz.forecast.di.component.AppComponent
+import com.tadiuzzz.forecast.di.component.DaggerAppComponent
 
 class App : Application() {
 

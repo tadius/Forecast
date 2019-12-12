@@ -1,12 +1,14 @@
-package com.tadiuzzz.newsapp.di.component
+package com.tadiuzzz.forecast.di.component
 
 import android.content.Context
 import com.tadiuzzz.forecast.di.module.ViewModelModule
+import com.tadiuzzz.forecast.di.module.NetworkModule
+import com.tadiuzzz.forecast.di.scope.AppScope
 import com.tadiuzzz.forecast.feature.MainActivity
-import com.tadiuzzz.newsapp.di.module.NetworkModule
 import dagger.BindsInstance
 import dagger.Component
 
+@AppScope
 @Component(
     modules = arrayOf(
         NetworkModule::class,

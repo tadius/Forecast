@@ -3,7 +3,7 @@ package com.tadiuzzz.forecast.di.module
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tadiuzzz.forecast.feature.MainViewModel
-import com.tadiuzzz.newsapp.di.scope.AppScope
+import com.tadiuzzz.forecast.di.scope.AppScope
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -17,7 +17,8 @@ class ViewModelFactory @Inject constructor(
     private val viewModels:
     MutableMap<Class<out ViewModel>, Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
-
+    
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         viewModels[modelClass]?.get() as T
 }

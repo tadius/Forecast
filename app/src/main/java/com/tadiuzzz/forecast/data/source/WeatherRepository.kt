@@ -1,8 +1,7 @@
 package com.tadiuzzz.forecast.data.source
 
 import com.tadiuzzz.forecast.data.WeatherResponse
-import com.tadiuzzz.newsapp.di.scope.AppScope
-import retrofit2.Response
+import com.tadiuzzz.forecast.di.scope.AppScope
 import javax.inject.Inject
 
 @AppScope
