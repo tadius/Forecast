@@ -9,11 +9,13 @@
     </style>
 
     <style name="TextMain">
+        <item name="android:fontFamily">@font/proxima_nova</item>
         <item name="android:textColor">@color/textColorMain</item>
         <item name="android:textSize">@dimen/mainTextSize</item>
     </style>
 
     <style name="TextAdditional">
+        <item name="android:fontFamily">@font/proxima_nova</item>
         <item name="android:textColor">@color/textColorAdditional</item>
         <item name="android:textSize">@dimen/additionalTextSize</item>
     </style>
