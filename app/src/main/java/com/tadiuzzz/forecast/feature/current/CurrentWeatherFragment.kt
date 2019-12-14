@@ -38,7 +38,7 @@ class CurrentWeatherFragment : Fragment() {
         binding.viewmodel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.updateCurrentWeather("Krasnodar") //TODO: change to shared preference call
+        viewModel.updateCurrentWeather("Norilsk") //TODO: change to shared preference call
 
         return binding.root
     }

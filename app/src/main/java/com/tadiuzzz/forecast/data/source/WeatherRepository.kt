@@ -8,7 +8,7 @@ import javax.inject.Inject
 @AppScope
 class WeatherRepository @Inject constructor(val weatherApi: WeatherApi) {
 
-    suspend fun getCurrentWeather(city: String): Response<WeatherResponse> {
-        return weatherApi.getCurrentWeather(city)
+    suspend fun getCurrentWeather(city: String, units: String): Response<WeatherResponse> {
+        return weatherApi.getCurrentWeather(city, units)
     }
 }

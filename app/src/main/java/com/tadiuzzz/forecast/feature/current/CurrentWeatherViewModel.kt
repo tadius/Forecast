@@ -27,7 +27,7 @@ class CurrentWeatherViewModel @Inject constructor(
     fun updateCurrentWeather(cityName: String) {
         infoHandler.showLoading(true)
         viewModelScope.launch {
-            val weatherResponse = async { getCurrentWeather(cityName) }.await()
+            val weatherResponse = async { getCurrentWeather(cityName, units = "metric") }.await()
 
             withContext(Dispatchers.Main) {
                 infoHandler.showLoading(false)

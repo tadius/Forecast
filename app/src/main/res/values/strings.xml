@@ -5,7 +5,7 @@
     <string name="wind">Ветер</string>
     <string name="humidity">Влажность</string>
     <string name="pressure">Давление</string>
-    <string name="rain_chance">Вероятность дождя</string>
+    <string name="rain_chance">Уровень осадков</string>
     <string name="content_desc_weather_icon">Иконка погоды</string>
     <string name="celsius">C</string>
     <string name="fahrenheit">F</string>
@@ -24,4 +24,5 @@
     <string name="pressure_metric">мм рт.ст.</string>
     <string name="wind_speed_metric">м/с</string>
     <string name="percent">%</string>
+    <string name="rainfall_level">мм</string>
 </resources>
