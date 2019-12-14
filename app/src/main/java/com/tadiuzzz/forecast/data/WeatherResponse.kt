@@ -55,11 +55,11 @@ data class Main (
 )
 
 data class Snow (
-    @SerializedName("3h") val snowChance : Double
+    @SerializedName("3h") val level : Double
 )
 
 data class Rain (
-    @SerializedName("3h") val rainChance : Double
+    @SerializedName("3h") val level : Double
 )
 
 data class Sys (

@@ -1,6 +1,7 @@
 package com.tadiuzzz.forecast.feature.current
 
 import android.content.Context
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,9 +20,16 @@ class CurrentWeatherViewModel @Inject constructor(
     private val viewModelScope = CoroutineScope(Dispatchers.IO + viewModelJob)
 
     private val currentWeather = MutableLiveData<CurrentWeather>()
+    val isMetricUnits = ObservableBoolean(true)
 
     fun getCurrentWeather(): LiveData<CurrentWeather> {
         return currentWeather
+    }
+
+    fun onTempSwitcherClick() {
+        isMetricUnits.set(!isMetricUnits.get())
+        updateCurrentWeather("Ростов-на-Дону")
+        //TODO: update units value in SharedPreference and update current weather
     }
 
     fun updateCurrentWeather(cityName: String) {

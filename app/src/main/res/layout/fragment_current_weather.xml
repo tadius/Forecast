@@ -5,7 +5,6 @@
 
     <data>
 
-        <import type="android.text.Html"/>
         <variable
             name="viewmodel"
             type="com.tadiuzzz.forecast.feature.current.CurrentWeatherViewModel" />
@@ -46,8 +45,9 @@
             android:layout_height="30dp"
             android:layout_marginBottom="@dimen/doubleMinPadding"
             android:background="@drawable/temp_switcher_outline"
-            android:checkedButton="@id/rb_fahrenheit"
+            android:checkedButton="@{viewmodel.isMetricUnits() ? @id/rb_celsius : @id/rb_fahrenheit}"
             android:orientation="horizontal"
+            tools:checkedButton="@id/rb_celsius"
             app:layout_constraintBottom_toTopOf="@+id/tv_current_location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -61,11 +61,14 @@
                 android:layout_weight="1"
                 android:background="@drawable/temp_switcher_selector_left"
                 android:button="@null"
+                android:onClick="@{() -> viewmodel.onTempSwitcherClick()}"
                 android:gravity="center"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
                 android:textColor="@drawable/temp_switcher_text_selector"
-                android:text="@string/celsius" />
+                android:text="@string/celsius"
+                app:textStyle='@{viewmodel.isMetricUnits() ? "bold" : "normal"}'
+                />
 
             <RadioButton
                 android:id="@+id/rb_fahrenheit"
@@ -75,12 +78,15 @@
                 android:layout_weight="1"
                 android:background="@drawable/temp_switcher_selector_right"
                 android:button="@null"
+                android:onClick="@{() -> viewmodel.onTempSwitcherClick()}"
                 android:buttonTint="@color/textColorMain"
                 android:gravity="center"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
                 android:textColor="@drawable/temp_switcher_text_selector"
-                android:text="@string/fahrenheit" />
+                android:text="@string/fahrenheit"
+                app:textStyle='@{viewmodel.isMetricUnits() ? "normal" : "bold"}'
+                />
         </RadioGroup>
 
         <TextView
@@ -141,6 +147,7 @@
             style="@style/TextMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/minPadding"
             android:text='@{viewmodel.currentWeather.description}'
             app:layout_constraintBottom_toTopOf="@+id/tv_pressure_label"
             app:layout_constraintEnd_toEndOf="parent"
@@ -226,7 +233,7 @@
             style="@style/TextMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{viewmodel.currentWeather.rainfallChance}'
+            android:text="@{viewmodel.currentWeather.rainfallLevel}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/vertical_center_guideline"
             tools:text="10%" />

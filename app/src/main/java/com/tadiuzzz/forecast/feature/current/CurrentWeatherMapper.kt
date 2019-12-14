@@ -50,12 +50,14 @@ class CurrentWeatherMapper {
             val description = SpannableStringBuilder()
                 .append(weatherState.weather[0].description.capitalize())
 
-            val rainfallChance = when {
+            val rainfallLevel = when {
                 weatherState.rain != null -> SpannableStringBuilder()
-                    .bold { append((weatherState.rain.rainChance * 100).toInt().toString()) }
-                    .bold { append(context.getString(R.string.percent)) }
+                    .bold { append(weatherState.rain.level.toString()) }
+                    .append(" ")
+                    .append(context.getString(R.string.rainfall_level))
                 weatherState.snow != null -> SpannableStringBuilder()
-                    .bold { append((weatherState.snow.snowChance * 100).toInt().toString()) }
+                    .bold { append(weatherState.snow.level.toString()) }
+                    .append(" ")
                     .append(context.getString(R.string.rainfall_level))
                 else -> SpannableStringBuilder()
                     .bold { append("0") }
@@ -64,7 +66,7 @@ class CurrentWeatherMapper {
             }
 
 
-            return CurrentWeather(city, temp, wind, humidity, pressure, description, rainfallChance)
+            return CurrentWeather(city, temp, wind, humidity, pressure, description, rainfallLevel)
         }
 
         private fun convertWindDirectionToString(context: Context, windDirection: Int?): String {
