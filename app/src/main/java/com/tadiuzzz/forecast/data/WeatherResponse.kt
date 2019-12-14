@@ -12,6 +12,7 @@ data class WeatherResponse (
     @SerializedName("clouds") val clouds : Clouds,
     @SerializedName("dt") val dt : Int,
     @SerializedName("sys") val sys : Sys,
+    @SerializedName("timezone") val timezone : Int,
     @SerializedName("id") val id : Int,
     @SerializedName("name") val name : String,
     @SerializedName("cod") val cod : Int
@@ -22,6 +23,27 @@ data class Coord (
     @SerializedName("lat") val lat : Double
 )
 
+data class Clouds (
+    @SerializedName("all") val all : Int
+)
+
+data class Main (
+    @SerializedName("temp") val temp : Double,
+    @SerializedName("feels_like") val feels_like : Double,
+    @SerializedName("temp_min") val temp_min : Double,
+    @SerializedName("temp_max") val temp_max : Double,
+    @SerializedName("pressure") val pressure : Int,
+    @SerializedName("humidity") val humidity : Int
+)
+
+data class Sys (
+    @SerializedName("type") val type : Int,
+    @SerializedName("id") val id : Int,
+    @SerializedName("country") val country : String,
+    @SerializedName("sunrise") val sunrise : Int,
+    @SerializedName("sunset") val sunset : Int
+)
+
 data class Weather (
     @SerializedName("id") val id : Int,
     @SerializedName("main") val main : String,
@@ -29,28 +51,7 @@ data class Weather (
     @SerializedName("icon") val icon : String
 )
 
-data class Main (
-    @SerializedName("temp") val temp : Double,
-    @SerializedName("pressure") val pressure : Int,
-    @SerializedName("humidity") val humidity : Int,
-    @SerializedName("temp_min") val temp_min : Double,
-    @SerializedName("temp_max") val temp_max : Double
-)
-
 data class Wind (
     @SerializedName("speed") val speed : Double,
     @SerializedName("deg") val deg : Int
-)
-
-data class Clouds (
-    @SerializedName("all") val all : Int
-)
-
-data class Sys (
-    @SerializedName("type") val type : Int,
-    @SerializedName("id") val id : Int,
-    @SerializedName("message") val message : Double,
-    @SerializedName("country") val country : String,
-    @SerializedName("sunrise") val sunrise : Int,
-    @SerializedName("sunset") val sunset : Int
 )

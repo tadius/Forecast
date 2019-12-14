@@ -8,8 +8,9 @@ import com.tadiuzzz.forecast.feature.current.usecase.GetCurrentWeather
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-class CurrentWeatherViewModel @Inject constructor(private val getCurrentWeather: GetCurrentWeather) :
-    ViewModel() {
+class CurrentWeatherViewModel @Inject constructor(
+    private val getCurrentWeather: GetCurrentWeather,
+    private val infoHandler: InfoHandler) : ViewModel() {
 
     private var viewModelJob = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.IO + viewModelJob)
@@ -20,13 +21,20 @@ class CurrentWeatherViewModel @Inject constructor(private val getCurrentWeather:
         return currentWeather
     }
 
-    public fun updateCurrentWeather(cityName: String) {
+    fun updateCurrentWeather(cityName: String) {
+        infoHandler.showLoading(true)
         viewModelScope.launch {
             val weatherResponse = async { getCurrentWeather(cityName) }.await()
-            withContext(Dispatchers.Main) {
-                currentWeather.value = weatherResponse
-            }
 
+            withContext(Dispatchers.Main) {
+                infoHandler.showLoading(false)
+                infoHandler.emitInfoMessage("Погода получена")
+                if (weatherResponse.isSuccessful) {
+                    currentWeather.value = weatherResponse.body()
+                } else {
+                    infoHandler.emitErrorMessage(weatherResponse.message())
+                }
+            }
         }
     }
 

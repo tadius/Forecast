@@ -1,22 +1,23 @@
 package com.tadiuzzz.forecast.feature.current
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.tadiuzzz.forecast.App
-
 import com.tadiuzzz.forecast.R
+import com.tadiuzzz.forecast.databinding.FragmentCurrentWeatherBinding
+import com.tadiuzzz.forecast.di.module.ViewModelFactory
 import javax.inject.Inject
 
 class CurrentWeatherFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: ViewModelFactory
     private val viewModel: CurrentWeatherViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)[CurrentWeatherViewModel::class.java]
     }
@@ -30,12 +31,16 @@ class CurrentWeatherFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_current_weather, container, false)
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-//        viewModel.updateCurrentWeather("Krasnodar") //TODO: change to shared preference call
+        val binding: FragmentCurrentWeatherBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_current_weather, container, false)
+
+        binding.viewmodel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        viewModel.updateCurrentWeather("Krasnodar") //TODO: change to shared preference call
+
+        return binding.root
     }
 
 }
