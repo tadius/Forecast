@@ -10,4 +10,18 @@
     <string name="celsius">C</string>
     <string name="fahrenheit">F</string>
     <string name="degree">º</string>
+    <string name="error_empty_response_body">Не удалось получить текущую погоду</string>
+    <string name="wind_direction_n">С</string>
+    <string name="wind_direction_ne">СВ</string>
+    <string name="wind_direction_e">В</string>
+    <string name="wind_direction_se">ЮВ</string>
+    <string name="wind_direction_s">Ю</string>
+    <string name="wind_direction_sw">ЮЗ</string>
+    <string name="wind_direction_w">З</string>
+    <string name="wind_direction_nw">СЗ</string>
+    <string name="wind_direction_none">штиль</string>
+    <string name="unknown_value">\?</string>
+    <string name="pressure_metric">мм рт.ст.</string>
+    <string name="wind_speed_metric">м/с</string>
+    <string name="percent">%</string>
 </resources>

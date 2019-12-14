@@ -5,6 +5,7 @@
 
     <data>
 
+        <import type="android.text.Html"/>
         <variable
             name="viewmodel"
             type="com.tadiuzzz.forecast.feature.current.CurrentWeatherViewModel" />
@@ -23,7 +24,7 @@
             style="@style/TextCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(viewmodel.currentWeather.name)}"
+            android:text="@{viewmodel.currentWeather.city}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Краснодар" />
@@ -128,7 +129,7 @@
             style="@style/TextTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{String.format("%s", viewmodel.currentWeather.main.temp)}'
+            android:text='@{viewmodel.currentWeather.temp}'
             app:layout_constraintBottom_toTopOf="@+id/tv_pressure_label"
             app:layout_constraintStart_toStartOf="@+id/vertical_center_guideline"
             app:layout_constraintTop_toBottomOf="@+id/tv_current_location"
@@ -139,13 +140,13 @@
             style="@style/TextMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{String.format("%s", viewmodel.currentWeather.wind.speed)}'
+            android:text='@{viewmodel.currentWeather.wind}'
             app:layout_constraintBottom_toTopOf="@+id/tv_pressure_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_temperature"
             app:layout_constraintVertical_bias="0.0"
-            tools:text="10 м/с, Западный" />
+            tools:text="Облачно" />
 
         <TextView
             android:id="@+id/tv_wind_label"
@@ -162,7 +163,7 @@
             style="@style/TextMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{String.format("%s", viewmodel.currentWeather.wind.speed)}'
+            android:text='@{viewmodel.currentWeather.wind}'
             android:layout_marginBottom="@dimen/doubleMinPadding"
             app:layout_constraintBottom_toTopOf="@+id/tv_humidity_label"
             app:layout_constraintStart_toStartOf="parent"
@@ -183,7 +184,7 @@
             style="@style/TextMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{String.format("%s", viewmodel.currentWeather.main.humidity)}'
+            android:text='@{viewmodel.currentWeather.humidity}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="60%" />
@@ -203,7 +204,7 @@
             style="@style/TextMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{String.format("%s", viewmodel.currentWeather.main.pressure)}'
+            android:text='@{viewmodel.currentWeather.pressure}'
             android:layout_marginBottom="@dimen/doubleMinPadding"
             app:layout_constraintBottom_toTopOf="@+id/tv_rain_chance_label"
             app:layout_constraintStart_toStartOf="@+id/vertical_center_guideline"
@@ -224,7 +225,7 @@
             style="@style/TextMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{String.format("%s", viewmodel.currentWeather.main.pressure)}'
+            android:text='@{viewmodel.currentWeather.pressure}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/vertical_center_guideline"
             tools:text="10%" />
