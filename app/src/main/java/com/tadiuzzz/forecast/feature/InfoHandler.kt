@@ -1,9 +1,8 @@
-package com.tadiuzzz.forecast.feature.current
+package com.tadiuzzz.forecast.feature
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tadiuzzz.forecast.di.scope.AppScope
-import com.tadiuzzz.forecast.feature.SingleLiveEvent
 import javax.inject.Inject
 
 @AppScope

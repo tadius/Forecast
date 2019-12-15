@@ -107,6 +107,7 @@
             android:drawableStart="@drawable/ic_location"
             android:drawablePadding="@dimen/minPadding"
             android:text="@string/current_location"
+            android:onClick="@{() -> viewmodel.onMyLocationClick()}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_change_city"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
