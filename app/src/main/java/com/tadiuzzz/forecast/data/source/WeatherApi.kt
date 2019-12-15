@@ -1,5 +1,6 @@
 package com.tadiuzzz.forecast.data.source
 
+import com.tadiuzzz.forecast.data.CityResponse
 import com.tadiuzzz.forecast.data.WeatherResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -28,4 +29,10 @@ interface WeatherApi {
         @Query("units") units: String,
         @Query("lang") lang: String = "ru"
     ): Response<WeatherResponse>
+
+    @GET("find")
+    suspend fun findCity(
+        @Query("q") name: String,
+        @Query("lang") lang: String = "ru"
+    ): Response<CityResponse>
 }

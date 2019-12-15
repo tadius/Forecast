@@ -10,7 +10,8 @@
     <string name="celsius">C</string>
     <string name="fahrenheit">F</string>
     <string name="degree">º</string>
-    <string name="error_empty_response_body">Не удалось получить текущую погоду</string>
+    <string name="error_empty_weather_response_body">Не удалось получить текущую погоду</string>
+    <string name="error_empty_city_response_body">Не удалось получить список городов</string>
     <string name="wind_direction_n">С</string>
     <string name="wind_direction_ne">СВ</string>
     <string name="wind_direction_e">В</string>

@@ -18,6 +18,7 @@ import com.tadiuzzz.forecast.feature.SharedPreferenceManager
 import com.tadiuzzz.forecast.feature.SharedPreferenceManager.Companion.PREF_CITY_ID
 import com.tadiuzzz.forecast.feature.SharedPreferenceManager.Companion.PREF_IS_METRIC_UNITS
 import com.tadiuzzz.forecast.feature.SharedPreferenceManager.Companion.PREF_UNITS
+import com.tadiuzzz.forecast.feature.SingleLiveEvent
 import com.tadiuzzz.forecast.feature.current.usecase.GetCurrentWeatherByCityId
 import com.tadiuzzz.forecast.feature.current.usecase.GetCurrentWeatherByCoordinates
 import kotlinx.coroutines.*
@@ -41,6 +42,8 @@ class CurrentWeatherViewModel @Inject constructor(
 
     private val currentWeather = MutableLiveData<CurrentWeather>()
 
+    val changeCityEvent = SingleLiveEvent<Boolean>()
+
     val isMetricUnits: ObservableBoolean =
         ObservableBoolean(sharedPreferenceManager.getBooleanValue(PREF_IS_METRIC_UNITS, true))
 
@@ -61,6 +64,10 @@ class CurrentWeatherViewModel @Inject constructor(
             }
         }
         updateCurrentWeather()
+    }
+
+    fun onChangeCityClick() {
+        changeCityEvent.call()
     }
 
     fun onMyLocationClick() {
@@ -107,7 +114,7 @@ class CurrentWeatherViewModel @Inject constructor(
                         )
                         updateCurrentWeather()
                     } else
-                        infoHandler.emitErrorMessage(context.getString(R.string.error_empty_response_body))
+                        infoHandler.emitErrorMessage(context.getString(R.string.error_empty_weather_response_body))
                 } else {
                     infoHandler.emitErrorMessage(weatherResponse.message())
                 }
@@ -139,7 +146,7 @@ class CurrentWeatherViewModel @Inject constructor(
                             isMetricUnits.get()
                         )
                     else
-                        infoHandler.emitErrorMessage(context.getString(R.string.error_empty_response_body))
+                        infoHandler.emitErrorMessage(context.getString(R.string.error_empty_weather_response_body))
                 } else {
                     infoHandler.emitErrorMessage(weatherResponse.message())
                 }
