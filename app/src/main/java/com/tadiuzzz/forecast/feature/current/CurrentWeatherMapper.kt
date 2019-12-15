@@ -82,8 +82,9 @@ class CurrentWeatherMapper {
                     .append(rainfallUnits)
             }
 
+            val icon = weatherState.weather[0].icon
 
-            return CurrentWeather(city, temp, wind, humidity, pressure, description, rainfallLevel)
+            return CurrentWeather(city, temp, wind, humidity, pressure, description, rainfallLevel, icon)
         }
 
         private fun convertWindDirectionToString(context: Context, windDirection: Int?): String {
@@ -114,7 +115,7 @@ class CurrentWeatherMapper {
             if (isMetricUnits)
                 return ((rainfallLevel * 100).roundToInt() / 100.00).toString()
             else
-                return ((rainfallLevel * 25.4 * 100).roundToInt() / 100.00).toString()
+                return (((rainfallLevel/25.4) * 100).roundToInt() / 100.00).toString()
         }
     }
 }

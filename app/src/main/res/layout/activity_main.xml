@@ -13,7 +13,7 @@
 
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".feature.MainActivity">
@@ -21,7 +21,7 @@
         <FrameLayout
             android:id="@+id/main_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -29,6 +29,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="@{viewmodel.infoHandler.isLoadingVisible().booleanValue() ? View.VISIBLE : View.GONE}" />
-    </FrameLayout>
+            android:visibility="@{viewmodel.infoHandler.isLoadingVisible().booleanValue() ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="@+id/main_container"
+            app:layout_constraintStart_toStartOf="@+id/main_container"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

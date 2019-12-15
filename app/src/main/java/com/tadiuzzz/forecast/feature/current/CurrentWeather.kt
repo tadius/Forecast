@@ -9,5 +9,6 @@ data class CurrentWeather (
     val humidity: SpannableStringBuilder,
     val pressure: SpannableStringBuilder,
     val description: SpannableStringBuilder,
-    val rainfallLevel: SpannableStringBuilder
+    val rainfallLevel: SpannableStringBuilder,
+    val icon: String
 )

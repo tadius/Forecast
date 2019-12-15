@@ -9,5 +9,6 @@
     <dimen name="doubleMinPadding">16dp</dimen>
 
     <dimen name="tempSwitcherCornersRadius">8dp</dimen>
+    <dimen name="weather_icon_size">100dp</dimen>
 
 </resources>

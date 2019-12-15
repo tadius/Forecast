@@ -85,11 +85,11 @@ class CurrentWeatherViewModel @Inject constructor(
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location? ->
                 if (location != null)
-                    updateCurrentWeather(location.latitude, location.longitude)
+                    getCityByLocation(location.latitude, location.longitude)
             }
     }
 
-    private fun updateCurrentWeather(lat: Double, lon: Double) {
+    private fun getCityByLocation(lat: Double, lon: Double) {
         val units = sharedPreferenceManager.getStringValue(PREF_UNITS, "metric")
 
         infoHandler.showLoading(true)
@@ -101,15 +101,11 @@ class CurrentWeatherViewModel @Inject constructor(
                 infoHandler.showLoading(false)
                 if (weatherResponse.isSuccessful) {
                     if (weatherResponse.body() != null) {
-                        currentWeather.value = CurrentWeatherMapper.remapToCurrentWeather(
-                            context,
-                            weatherResponse.body()!!,
-                            isMetricUnits.get()
-                        )
                         sharedPreferenceManager.putStringValue(
                             PREF_CITY_ID,
                             weatherResponse.body()!!.city.id.toString()
                         )
+                        updateCurrentWeather()
                     } else
                         infoHandler.emitErrorMessage(context.getString(R.string.error_empty_response_body))
                 } else {

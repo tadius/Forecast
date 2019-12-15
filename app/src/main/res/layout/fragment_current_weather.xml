@@ -123,11 +123,14 @@
 
         <ImageView
             android:id="@+id/iv_weather_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/weather_icon_size"
+            android:layout_height="@dimen/weather_icon_size"
+            android:scaleType="fitCenter"
+            android:layout_marginRight="@dimen/minPadding"
             app:layout_constraintBottom_toTopOf="@+id/tv_wind_label"
             app:layout_constraintEnd_toStartOf="@+id/vertical_center_guideline"
             app:layout_constraintTop_toBottomOf="@+id/tv_change_city"
+            app:weatherIcon="@{viewmodel.currentWeather.icon}"
             tools:src="@tools:sample/avatars"
             android:contentDescription="@string/content_desc_weather_icon" />
 
@@ -136,6 +139,7 @@
             style="@style/TextTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/minPadding"
             android:textScaleX="0.8"
             android:text='@{viewmodel.currentWeather.temp}'
             app:layout_constraintBottom_toTopOf="@+id/tv_pressure_label"
@@ -149,11 +153,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/minPadding"
+            android:layout_marginTop="@dimen/minPadding"
             android:text='@{viewmodel.currentWeather.description}'
             app:layout_constraintBottom_toTopOf="@+id/tv_pressure_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_temperature"
+            app:layout_constraintTop_toBottomOf="@+id/iv_weather_icon"
             app:layout_constraintVertical_bias="0.0"
             tools:text="Облачно" />
 
