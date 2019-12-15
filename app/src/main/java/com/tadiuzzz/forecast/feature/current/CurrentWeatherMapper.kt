@@ -21,14 +21,14 @@ class CurrentWeatherMapper {
                 context.getString(R.string.wind_speed_imperial)
 
             val pressureUnits = if (isMetricUnits)
-                context.getString(R.string.rainfall_metric)
-            else
-                context.getString(R.string.rainfall_imperial)
-
-            val rainfallUnits = if (isMetricUnits)
                 context.getString(R.string.pressure_metric)
             else
                 context.getString(R.string.pressure_imperial)
+
+            val rainfallUnits = if (isMetricUnits)
+                context.getString(R.string.rainfall_metric)
+            else
+                context.getString(R.string.rainfall_imperial)
 
             val weatherState = weatherResponse.weatherStates[0]
 
