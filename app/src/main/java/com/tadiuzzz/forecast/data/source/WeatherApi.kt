@@ -7,8 +7,25 @@ import retrofit2.http.Query
 
 interface WeatherApi {
 
-   @GET("forecast")
-   suspend fun getCurrentWeather(@Query("q") cityName: String,
-                                 @Query("units") units: String
-   ): Response<WeatherResponse>
+    @GET("forecast")
+    suspend fun getCurrentWeatherByCityId(
+        @Query("id") cityId: String,
+        @Query("units") units: String,
+        @Query("lang") lang: String = "ru"
+    ): Response<WeatherResponse>
+
+    @GET("forecast")
+    suspend fun getCurrentWeatherByCityName(
+        @Query("q") cityName: String,
+        @Query("units") units: String,
+        @Query("lang") lang: String = "ru"
+    ): Response<WeatherResponse>
+
+    @GET("forecast")
+    suspend fun getCurrentWeatherByCoordinations(
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
+        @Query("units") units: String,
+        @Query("lang") lang: String = "ru"
+    ): Response<WeatherResponse>
 }

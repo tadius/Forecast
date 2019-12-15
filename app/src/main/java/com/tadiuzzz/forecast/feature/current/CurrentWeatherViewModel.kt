@@ -14,15 +14,22 @@ import com.tadiuzzz.forecast.feature.InfoHandler
 import com.tadiuzzz.forecast.feature.PermissionManager
 import com.tadiuzzz.forecast.feature.PermissionManager.Companion.PERMISSION_GRANTED
 import com.tadiuzzz.forecast.feature.PermissionManager.Companion.PERMISSION_REJECTED
-import com.tadiuzzz.forecast.feature.current.usecase.GetCurrentWeather
+import com.tadiuzzz.forecast.feature.SharedPreferenceManager
+import com.tadiuzzz.forecast.feature.SharedPreferenceManager.Companion.PREF_CITY_ID
+import com.tadiuzzz.forecast.feature.SharedPreferenceManager.Companion.PREF_IS_METRIC_UNITS
+import com.tadiuzzz.forecast.feature.SharedPreferenceManager.Companion.PREF_UNITS
+import com.tadiuzzz.forecast.feature.current.usecase.GetCurrentWeatherByCityId
+import com.tadiuzzz.forecast.feature.current.usecase.GetCurrentWeatherByCoordinates
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class CurrentWeatherViewModel @Inject constructor(
-    private val getCurrentWeather: GetCurrentWeather,
+    private val getCurrentWeatherByCityId: GetCurrentWeatherByCityId,
+    private val getCurrentWeatherByCoordinates: GetCurrentWeatherByCoordinates,
     private val context: Context,
     private val infoHandler: InfoHandler,
-    private val permissionManager: PermissionManager
+    private val permissionManager: PermissionManager,
+    private val sharedPreferenceManager: SharedPreferenceManager
 ) : ViewModel() {
 
     private var viewModelJob = Job()
@@ -33,7 +40,9 @@ class CurrentWeatherViewModel @Inject constructor(
     }
 
     private val currentWeather = MutableLiveData<CurrentWeather>()
-    val isMetricUnits = ObservableBoolean(true)
+
+    val isMetricUnits: ObservableBoolean =
+        ObservableBoolean(sharedPreferenceManager.getBooleanValue(PREF_IS_METRIC_UNITS, true))
 
     fun getCurrentWeather(): LiveData<CurrentWeather> {
         return currentWeather
@@ -41,8 +50,17 @@ class CurrentWeatherViewModel @Inject constructor(
 
     fun onTempSwitcherClick() {
         isMetricUnits.set(!isMetricUnits.get())
-        updateCurrentWeather("Ростов-на-Дону")
-        //TODO: update units value in SharedPreference and update current weather
+        when (isMetricUnits.get()) {
+            true -> {
+                sharedPreferenceManager.putBooleanValue(PREF_IS_METRIC_UNITS, true)
+                sharedPreferenceManager.putStringValue(PREF_UNITS, "metric")
+            }
+            false -> {
+                sharedPreferenceManager.putBooleanValue(PREF_IS_METRIC_UNITS, false)
+                sharedPreferenceManager.putStringValue(PREF_UNITS, "imperial")
+            }
+        }
+        updateCurrentWeather()
     }
 
     fun onMyLocationClick() {
@@ -52,7 +70,8 @@ class CurrentWeatherViewModel @Inject constructor(
             updateWeatherForCurrentLocation()
             return
         }
-        permissionManager.locationPermissionGranted.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        permissionManager.locationPermissionGranted.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(observable: Observable, i: Int) {
                 when (permissionManager.locationPermissionGranted.get()) {
                     PERMISSION_GRANTED -> updateWeatherForCurrentLocation()
@@ -64,22 +83,65 @@ class CurrentWeatherViewModel @Inject constructor(
 
     private fun updateWeatherForCurrentLocation() {
         fusedLocationClient.lastLocation
-            .addOnSuccessListener { location : Location? ->
+            .addOnSuccessListener { location: Location? ->
                 if (location != null)
-                    infoHandler.emitInfoMessage("${location.latitude.toString()} - ${location.longitude.toString()}")
+                    updateCurrentWeather(location.latitude, location.longitude)
             }
     }
 
-    fun updateCurrentWeather(cityName: String) {
+    private fun updateCurrentWeather(lat: Double, lon: Double) {
+        val units = sharedPreferenceManager.getStringValue(PREF_UNITS, "metric")
+
         infoHandler.showLoading(true)
         viewModelScope.launch {
-            val weatherResponse = async { getCurrentWeather(cityName, units = "metric") }.await()
+            val weatherResponse =
+                async { getCurrentWeatherByCoordinates(lat, lon, units!!) }.await()
+
+            withContext(Dispatchers.Main) {
+                infoHandler.showLoading(false)
+                if (weatherResponse.isSuccessful) {
+                    if (weatherResponse.body() != null) {
+                        currentWeather.value = CurrentWeatherMapper.remapToCurrentWeather(
+                            context,
+                            weatherResponse.body()!!,
+                            isMetricUnits.get()
+                        )
+                        sharedPreferenceManager.putStringValue(
+                            PREF_CITY_ID,
+                            weatherResponse.body()!!.city.id.toString()
+                        )
+                    } else
+                        infoHandler.emitErrorMessage(context.getString(R.string.error_empty_response_body))
+                } else {
+                    infoHandler.emitErrorMessage(weatherResponse.message())
+                }
+            }
+        }
+    }
+
+    fun updateCurrentWeather() {
+        val city = sharedPreferenceManager.getStringValue(PREF_CITY_ID)
+        val units = sharedPreferenceManager.getStringValue(PREF_UNITS, "metric")
+
+        //if there are no city in preferences try to get weather by current location
+        if (city.isNullOrEmpty()) {
+            onMyLocationClick()
+            return
+        }
+
+        infoHandler.showLoading(true)
+        viewModelScope.launch {
+            val weatherResponse = async { getCurrentWeatherByCityId(city, units!!) }.await()
 
             withContext(Dispatchers.Main) {
                 infoHandler.showLoading(false)
                 if (weatherResponse.isSuccessful) {
                     if (weatherResponse.body() != null)
-                        currentWeather.value = CurrentWeatherMapper.remapToCurrentWeather(context, weatherResponse.body()!!)
+                        currentWeather.value = CurrentWeatherMapper.remapToCurrentWeather(
+                            context,
+                            weatherResponse.body()!!,
+                            isMetricUnits.get()
+                        )
                     else
                         infoHandler.emitErrorMessage(context.getString(R.string.error_empty_response_body))
                 } else {

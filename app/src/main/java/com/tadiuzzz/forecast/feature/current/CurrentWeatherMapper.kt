@@ -5,13 +5,30 @@ import android.text.SpannableStringBuilder
 import androidx.core.text.bold
 import com.tadiuzzz.forecast.R
 import com.tadiuzzz.forecast.data.WeatherResponse
+import kotlin.math.roundToInt
 
 class CurrentWeatherMapper {
     companion object {
         fun remapToCurrentWeather(
             context: Context,
-            weatherResponse: WeatherResponse
+            weatherResponse: WeatherResponse,
+            isMetricUnits: Boolean
         ): CurrentWeather {
+
+            val windSpeedUnits = if (isMetricUnits)
+                context.getString(R.string.wind_speed_metric)
+            else
+                context.getString(R.string.wind_speed_imperial)
+
+            val pressureUnits = if (isMetricUnits)
+                context.getString(R.string.rainfall_metric)
+            else
+                context.getString(R.string.rainfall_imperial)
+
+            val rainfallUnits = if (isMetricUnits)
+                context.getString(R.string.pressure_metric)
+            else
+                context.getString(R.string.pressure_imperial)
 
             val weatherState = weatherResponse.weatherStates[0]
 
@@ -33,7 +50,7 @@ class CurrentWeatherMapper {
                 SpannableStringBuilder()
                     .bold { append(windSpeed) }
                     .append(" ")
-                    .append(context.getString(R.string.wind_speed_metric))
+                    .append(windSpeedUnits)
                     .append(", ")
                     .append(windDirection)
 
@@ -43,26 +60,26 @@ class CurrentWeatherMapper {
 
             val pressure =
                 SpannableStringBuilder()
-                    .bold { append(convertPressure(context, weatherState.main.pressure)) }
+                    .bold { append(convertPressure(context, weatherState.main.pressure, isMetricUnits)) }
                     .append(" ")
-                    .append(context.getString(R.string.pressure_metric))
+                    .append(pressureUnits)
 
             val description = SpannableStringBuilder()
                 .append(weatherState.weather[0].description.capitalize())
 
             val rainfallLevel = when {
                 weatherState.rain != null -> SpannableStringBuilder()
-                    .bold { append(weatherState.rain.level.toString()) }
+                    .bold { append(convertRainfall(weatherState.rain.level, isMetricUnits)) }
                     .append(" ")
-                    .append(context.getString(R.string.rainfall_level))
+                    .append(rainfallUnits)
                 weatherState.snow != null -> SpannableStringBuilder()
-                    .bold { append(weatherState.snow.level.toString()) }
+                    .bold { append(convertRainfall(weatherState.snow.level, isMetricUnits)) }
                     .append(" ")
-                    .append(context.getString(R.string.rainfall_level))
+                    .append(rainfallUnits)
                 else -> SpannableStringBuilder()
                     .bold { append("0") }
                     .append(" ")
-                    .append(context.getString(R.string.rainfall_level))
+                    .append(rainfallUnits)
             }
 
 
@@ -84,9 +101,20 @@ class CurrentWeatherMapper {
             }
         }
 
-        private fun convertPressure(context: Context, pressure: Int?): String {
+        private fun convertPressure(context: Context, pressure: Int?, isMetricUnits: Boolean): String {
             if (pressure == null) return context.getString(R.string.unknown_value)
-            return (pressure.toDouble() / 1.333).toInt().toString()
+            if (isMetricUnits)
+                return (pressure.toDouble() / 1.333).toInt().toString()
+            else
+                return (((pressure.toDouble() / 33.864) * 100).roundToInt() / 100.00).toString()
+        }
+
+        private fun convertRainfall(rainfallLevel: Double?, isMetricUnits: Boolean): String {
+            if (rainfallLevel == null) return "0"
+            if (isMetricUnits)
+                return ((rainfallLevel * 100).roundToInt() / 100.00).toString()
+            else
+                return ((rainfallLevel * 25.4 * 100).roundToInt() / 100.00).toString()
         }
     }
 }

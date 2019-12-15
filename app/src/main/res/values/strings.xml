@@ -26,5 +26,9 @@
     <string name="percent">%</string>
     <string name="rainfall_level">мм</string>
     <string name="error_no_location_permission">Нет прав на чтение местоположения</string>
+    <string name="wind_speed_imperial">миль/ч</string>
+    <string name="pressure_imperial">дюйм рт. ст</string>
+    <string name="rainfall_metric">мм/ч</string>
+    <string name="rainfall_imperial">дюйм/ч</string>
 
 </resources>
