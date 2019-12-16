@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#498CEC</color>
+    <color name="colorPrimaryDark">#29548B</color>
+    <color name="colorAccent">#B9B9B9</color>
+
+    <color name="backgroundColorMain">#498CEC</color>
+    <color name="textColorMain">#FFFFFF</color>
+    <color name="textColorAdditional">#99FFFFFF</color>
+
+    <color name="textColorDialog">#8B8B8B</color>
+    <color name="textColorButton">#333333</color>
+
+    <color name="tempSwitcherOutlineColor">#66FFFFFF</color>
+    <color name="tempSwitcherCheckedColor">#33FFFFFF</color>
+    <color name="tempSwitcherUncheckedColor">#00000000</color>
+
 </resources>
