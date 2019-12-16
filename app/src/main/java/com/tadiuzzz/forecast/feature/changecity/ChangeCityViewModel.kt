@@ -29,6 +29,7 @@ class ChangeCityViewModel @Inject constructor(
     val cityItems = MutableLiveData<List<CityItem>>()
 
     val isLoadingVisible = ObservableBoolean(false)
+    val closeDialogEvent = SingleLiveEvent<Boolean>()
 
     val enteredCity = ObservableField<String>("")
 
@@ -50,5 +51,10 @@ class ChangeCityViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun onCityChanged(item: CityItem) {
+        sharedPreferenceManager.putStringValue(SharedPreferenceManager.PREF_CITY_ID, item.cityId)
+        closeDialogEvent.call()
     }
 }

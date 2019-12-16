@@ -7,7 +7,18 @@ import com.tadiuzzz.forecast.databinding.ItemCityBinding
 
 class CityAdapter : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
 
+    companion object {
+        interface OnItemClickListener {
+            fun onItemClick(item: CityItem)
+        }
+    }
+
     private var founds: MutableList<CityItem> = ArrayList<CityItem>()
+    private lateinit var onItemClickListener: OnItemClickListener
+
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.onItemClickListener = onItemClickListener
+    }
 
     fun setItems(founds: List<CityItem>) {
         this.founds.clear()
@@ -30,9 +41,9 @@ class CityAdapter : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
     }
 
     inner class CityViewHolder(private val binding: ItemCityBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(items: CityItem) {
-            binding.data = items
-            //TODO: add click listener
+        fun bind(item: CityItem) {
+            binding.item = item
+            binding.listener = onItemClickListener
             binding.executePendingBindings()
         }
     }

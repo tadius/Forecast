@@ -44,11 +44,21 @@ class ChangeCityFragment : DialogFragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_change_city, container, false)
 
         binding.viewmodel = viewModel
+        adapter.setOnItemClickListener(object : CityAdapter.Companion.OnItemClickListener{
+            override fun onItemClick(item: CityItem) {
+                viewModel.onCityChanged(item)
+            }
+
+        })
         binding.adapter = adapter
         binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel.cityItems.observe(viewLifecycleOwner, Observer {
             adapter.setItems(it)
+        })
+
+        viewModel.closeDialogEvent.observe(viewLifecycleOwner, Observer {
+            dismiss()
         })
 
         return binding.root

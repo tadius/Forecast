@@ -35,4 +35,13 @@ class SharedPreferenceManager @Inject constructor(private val sharedPreferences:
     fun getStringValue(key: String, default: String = ""): String? {
         return sharedPreferences.getString(key, default)
     }
+
+    fun addPreferenceChangeListener(onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener) {
+        sharedPreferences.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
+
+    }
+
+    fun removePreferenceChangeListener(onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener) {
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
+    }
 }

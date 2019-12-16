@@ -4,8 +4,12 @@
 
     <data>
         <variable
-            name="data"
+            name="item"
             type="com.tadiuzzz.forecast.feature.changecity.CityItem" />
+        
+        <variable
+            name="listener"
+            type="com.tadiuzzz.forecast.feature.changecity.CityAdapter.Companion.OnItemClickListener" />
 
     </data>
 
@@ -14,6 +18,7 @@
         android:layout_width="match_parent"
         android:paddingTop="@dimen/doubleMinPadding"
         android:paddingBottom="@dimen/doubleMinPadding"
+        android:onClick="@{() -> listener.onItemClick(item)}"
         android:layout_height="wrap_content">
 
         <TextView
@@ -22,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@{data.cityName}"
+            android:text="@{item.cityName}"
             tools:text="Krasnodar, RU" />
 
         <TextView
@@ -32,7 +37,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="textEnd"
             android:layout_weight="1"
-            android:text="@{data.coordinates}"
+            android:text="@{item.coordinates}"
             tools:text="[55.7507, 37.6177]" />
     </LinearLayout>
 </layout>

@@ -1,6 +1,7 @@
 package com.tadiuzzz.forecast.feature.current
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.location.Location
 import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
@@ -46,6 +47,23 @@ class CurrentWeatherViewModel @Inject constructor(
 
     val isMetricUnits: ObservableBoolean =
         ObservableBoolean(sharedPreferenceManager.getBooleanValue(PREF_IS_METRIC_UNITS, true))
+
+    val onSharedPreferenceChangeListener = object: SharedPreferences.OnSharedPreferenceChangeListener {
+        override fun onSharedPreferenceChanged(
+            sharedPreferences: SharedPreferences?,
+            key: String?
+        ) {
+            when (key) {
+                PREF_CITY_ID -> updateCurrentWeather()
+            }
+        }
+
+    }
+
+
+    init {
+        sharedPreferenceManager.addPreferenceChangeListener(onSharedPreferenceChangeListener)
+    }
 
     fun getCurrentWeather(): LiveData<CurrentWeather> {
         return currentWeather
@@ -157,5 +175,6 @@ class CurrentWeatherViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+        sharedPreferenceManager.removePreferenceChangeListener(onSharedPreferenceChangeListener)
     }
 }
