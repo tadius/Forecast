@@ -3,8 +3,11 @@ package com.tadiuzzz.forecast.di.component
 import android.content.Context
 import com.tadiuzzz.forecast.di.module.ViewModelModule
 import com.tadiuzzz.forecast.di.module.NetworkModule
+import com.tadiuzzz.forecast.di.module.SharedPreferencesModule
 import com.tadiuzzz.forecast.di.scope.AppScope
 import com.tadiuzzz.forecast.feature.MainActivity
+import com.tadiuzzz.forecast.feature.changecity.ChangeCityFragment
+import com.tadiuzzz.forecast.feature.current.CurrentWeatherFragment
 import dagger.BindsInstance
 import dagger.Component
 
@@ -12,6 +15,7 @@ import dagger.Component
 @Component(
     modules = arrayOf(
         NetworkModule::class,
+        SharedPreferencesModule::class,
         ViewModelModule::class
     )
 )
@@ -23,4 +27,8 @@ interface AppComponent {
     }
 
     fun inject(activity: MainActivity)
+    fun inject(fragment: CurrentWeatherFragment)
+    fun inject(fragment: ChangeCityFragment) {
+
+    }
 }

@@ -4,6 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tadiuzzz.forecast.feature.MainViewModel
 import com.tadiuzzz.forecast.di.scope.AppScope
+import com.tadiuzzz.forecast.feature.changecity.ChangeCityFragment
+import com.tadiuzzz.forecast.feature.changecity.ChangeCityViewModel
+import com.tadiuzzz.forecast.feature.current.CurrentWeatherViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -42,5 +45,15 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     internal abstract fun mainViewModel(viewModel: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CurrentWeatherViewModel::class)
+    internal abstract fun currentWeatherViewModel(viewModel: CurrentWeatherViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChangeCityViewModel::class)
+    internal abstract fun changeCityViewModel(viewModel: ChangeCityViewModel): ViewModel
 
 }

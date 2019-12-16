@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="mainTextSize">18sp</dimen>
+    <dimen name="additionalTextSize">15sp</dimen>
+    <dimen name="cityTextSize">30sp</dimen>
+    <dimen name="temperatureTextSize">90sp</dimen>
+
+    <dimen name="minPadding">8dp</dimen>
+    <dimen name="doubleMinPadding">16dp</dimen>
+
+    <dimen name="tempSwitcherCornersRadius">8dp</dimen>
+    <dimen name="weather_icon_size">100dp</dimen>
+
+</resources>

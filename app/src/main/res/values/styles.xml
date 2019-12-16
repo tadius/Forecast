@@ -1,11 +1,42 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/backgroundColorMain</item>
+
+    </style>
+
+    <style name="TextMain">
+        <item name="android:fontFamily">@font/proxima_nova</item>
+        <item name="android:textColor">@color/textColorMain</item>
+        <item name="android:textSize">@dimen/mainTextSize</item>
+    </style>
+
+    <style name="TextAdditional">
+        <item name="android:fontFamily">@font/proxima_nova</item>
+        <item name="android:textColor">@color/textColorAdditional</item>
+        <item name="android:textSize">@dimen/additionalTextSize</item>
+    </style>
+
+    <style name="TextCity" parent="TextMain">
+        <item name="android:textSize">@dimen/cityTextSize</item>
+    </style>
+
+    <style name="TextTemperature" parent="TextMain">
+        <item name="android:textSize">@dimen/temperatureTextSize</item>
+    </style>
+
+    <style name="TextDialog" parent="TextAdditional">
+        <item name="android:textColor">@color/textColorDialog</item>
+    </style>
+
+    <style name="ButtonDialog" parent="TextAdditional">
+        <item name="android:textColor">@color/textColorButton</item>
     </style>
 
 </resources>
