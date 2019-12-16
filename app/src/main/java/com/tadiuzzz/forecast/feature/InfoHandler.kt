@@ -1,5 +1,6 @@
 package com.tadiuzzz.forecast.feature
 
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tadiuzzz.forecast.di.scope.AppScope
@@ -9,11 +10,7 @@ import javax.inject.Inject
 class InfoHandler @Inject constructor() {
     val infoMessageEvent = SingleLiveEvent<String>()
     val errorMessageEvent = SingleLiveEvent<String>()
-    val isLoadingVisible = MutableLiveData<Boolean>()
-
-    fun getIsLoadingVisible() : LiveData<Boolean> {
-        return isLoadingVisible
-    }
+    val isLoadingVisible = ObservableBoolean(false)
 
     fun emitInfoMessage(message: String) {
         infoMessageEvent.value = message
@@ -22,6 +19,6 @@ class InfoHandler @Inject constructor() {
         errorMessageEvent.value = message
     }
     fun showLoading(flag: Boolean) {
-        isLoadingVisible.value = flag
+        isLoadingVisible.set(flag)
     }
 }

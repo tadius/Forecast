@@ -31,5 +31,6 @@
     <string name="pressure_imperial">дюйм рт. ст</string>
     <string name="rainfall_metric">мм/ч</string>
     <string name="rainfall_imperial">дюйм/ч</string>
+    <string name="search_city_title">Введите название населенного пункта или почтовый индекс</string>
 
 </resources>

@@ -3,7 +3,6 @@ package com.tadiuzzz.forecast.feature.changecity
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +47,7 @@ class ChangeCityFragment : DialogFragment() {
         binding.adapter = adapter
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.foundCities.observe(viewLifecycleOwner, Observer {
+        viewModel.cityItems.observe(viewLifecycleOwner, Observer {
             adapter.setItems(it)
         })
 

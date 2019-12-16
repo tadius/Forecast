@@ -8,6 +8,9 @@
     <color name="textColorMain">#FFFFFF</color>
     <color name="textColorAdditional">#99FFFFFF</color>
 
+    <color name="textColorDialog">#8B8B8B</color>
+    <color name="textColorButton">#333333</color>
+
     <color name="tempSwitcherOutlineColor">#66FFFFFF</color>
     <color name="tempSwitcherCheckedColor">#33FFFFFF</color>
     <color name="tempSwitcherUncheckedColor">#00000000</color>

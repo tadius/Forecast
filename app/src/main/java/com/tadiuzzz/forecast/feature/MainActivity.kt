@@ -3,6 +3,7 @@ package com.tadiuzzz.forecast.feature
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -117,7 +118,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showInfoMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
     }
 
     private fun showErrorMessage(message: String) {

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="data"
-            type="com.tadiuzzz.forecast.data.CityItem" />
+            type="com.tadiuzzz.forecast.feature.changecity.CityItem" />
 
     </data>
 
@@ -18,19 +18,21 @@
 
         <TextView
             android:id="@+id/tv_city_name"
+            style="@style/TextDialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@{data.name}"
+            android:text="@{data.cityName}"
             tools:text="Krasnodar, RU" />
 
         <TextView
             android:id="@+id/tv_coordinates"
+            style="@style/TextDialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="textEnd"
             android:layout_weight="1"
-            android:text="@{data.coord.lat.toString()}"
+            android:text="@{data.coordinates}"
             tools:text="[55.7507, 37.6177]" />
     </LinearLayout>
 </layout>

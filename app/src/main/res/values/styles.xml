@@ -31,4 +31,12 @@
         <item name="android:textSize">@dimen/temperatureTextSize</item>
     </style>
 
+    <style name="TextDialog" parent="TextAdditional">
+        <item name="android:textColor">@color/textColorDialog</item>
+    </style>
+
+    <style name="ButtonDialog" parent="TextAdditional">
+        <item name="android:textColor">@color/textColorButton</item>
+    </style>
+
 </resources>

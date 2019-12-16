@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="@{viewmodel.infoHandler.isLoadingVisible().booleanValue() ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewmodel.infoHandler.isLoadingVisible() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="@+id/main_container"
             app:layout_constraintStart_toStartOf="@+id/main_container"
