@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.tadiuzzz.forecast.R
+import com.tadiuzzz.forecast.common.Constants.Companion.DEFAULT_CITY_ID
 import com.tadiuzzz.forecast.feature.InfoHandler
 import com.tadiuzzz.forecast.feature.PermissionManager
 import com.tadiuzzz.forecast.feature.PermissionManager.Companion.PERMISSION_GRANTED
@@ -60,9 +61,9 @@ class CurrentWeatherViewModel @Inject constructor(
 
     }
 
-
     init {
         sharedPreferenceManager.addPreferenceChangeListener(onSharedPreferenceChangeListener)
+        currentWeather.value = CurrentWeather()
     }
 
     fun getCurrentWeather(): LiveData<CurrentWeather> {
@@ -100,7 +101,11 @@ class CurrentWeatherViewModel @Inject constructor(
             override fun onPropertyChanged(observable: Observable, i: Int) {
                 when (permissionManager.locationPermissionGranted.get()) {
                     PERMISSION_GRANTED -> updateWeatherForCurrentLocation()
-                    PERMISSION_REJECTED -> infoHandler.emitErrorMessage(context.getString(R.string.error_no_location_permission))
+                    PERMISSION_REJECTED -> {
+                        infoHandler.emitErrorMessage(context.getString(R.string.error_no_location_permission))
+                        sharedPreferenceManager.putStringValue(PREF_CITY_ID, DEFAULT_CITY_ID)
+                        updateCurrentWeather()
+                    }
                 }
             }
         })
