@@ -5,6 +5,8 @@ import android.text.SpannableStringBuilder
 import androidx.core.text.bold
 import com.tadiuzzz.forecast.R
 import com.tadiuzzz.forecast.data.WeatherResponse
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.math.roundToInt
 
 class CurrentWeatherMapper {
@@ -82,9 +84,12 @@ class CurrentWeatherMapper {
                     .append(rainfallUnits)
             }
 
+            val dateFormat = SimpleDateFormat("dd.MM.yyyy hh:mm")
+            val currentDate = SpannableStringBuilder(dateFormat.format(Date()))
+
             val icon = weatherState.weather[0].icon
 
-            return CurrentWeather(city, temp, wind, humidity, pressure, description, rainfallLevel, icon)
+            return CurrentWeather(city, temp, wind, humidity, pressure, description, rainfallLevel, currentDate, icon)
         }
 
         private fun convertWindDirectionToString(context: Context, windDirection: Int?): String {

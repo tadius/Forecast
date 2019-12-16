@@ -10,6 +10,7 @@ data class CurrentWeather (
     val pressure: SpannableStringBuilder,
     val description: SpannableStringBuilder,
     val rainfallLevel: SpannableStringBuilder,
+    val date: SpannableStringBuilder,
     val icon: String
 ) {
     constructor() : this(
@@ -18,8 +19,9 @@ data class CurrentWeather (
         SpannableStringBuilder("?"),
         SpannableStringBuilder("?"),
         SpannableStringBuilder("?"),
+        SpannableStringBuilder(""),
         SpannableStringBuilder("?"),
-        SpannableStringBuilder("?"),
+        SpannableStringBuilder(""),
         "?"
     )
 }
